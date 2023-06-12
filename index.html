@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="heading">
+      <div class="text">Promiss HandSon</div>
+    </div>
+    <hr />
+    <h3>
+      Q1.Write one example explaining how you can write a callback function.
+    </h3>
+    <h4>Ans:-</h4>
+    <pre>
+function greet(name, callback) {
+  var greeting = "Hello, " + name + "!";
+  callback(greeting);
+}
+
+function displayGreeting(message) {
+  console.log(message);
+}
+
+greet("John", displayGreeting);
+</pre
+    >
+    <h4>Output:-Hello john</h4>
+    <h4>explanation:-</h4>
+    <p>
+      In this example, we have a function called greet that takes in a name and
+      a callback function as arguments. The greet function constructs a greeting
+      message by concatenating the name with "Hello, " and an exclamation mark.
+      Then, it invokes the callback function, passing the greeting message as an
+      argument. The callback function, displayGreeting, is defined separately.
+      It takes in the greeting message and logs it to the console using
+      console.log()
+    </p>
+    <hr />
+    <h3>
+      Q2.Write a callback function to print numbers from 1 to 7, in which 1
+      should be printed after 1 sec, 2 should be printed after 2 sec, 3 should
+      be printed after 3 sec, and so on. Explain callback hell. Numbers 1 2 3 4
+      5 6 7
+    </h3>
+    <h4>Ans:-</h4>
+    <pre>
+      setTimeout(function() {
+        console.log(1);
+        setTimeout(function() {
+          console.log(2);
+          setTimeout(function() {
+            console.log(3);
+            setTimeout(function() {
+              console.log(4);
+              setTimeout(function() {
+                console.log(5);
+                setTimeout(function() {
+                  console.log(6);
+                  setTimeout(function() {
+                    console.log(7);
+                  }, 7000);
+                }, 6000);
+              }, 5000);
+            }, 4000);
+          }, 3000);
+        }, 2000);
+      }, 1000);    
+</pre
+    >
+    <h4>Output:-1 2 3 4 5 6 7</h4>
+    <h4>explanation:-</h4>
+    <p>
+      In this example, each setTimeout function is nested within the callback of
+      the previous setTimeout, resulting in callback hell. The delays for each
+      number are manually specified within each nested callback
+    </p>
+    <hr />
+    <h3>
+      Q3.Write the promise function to print numbers from 1 to 7, in which 1
+      should be printed after 1 sec, 2 should be printed after 2 sec, 3 should
+      be printed after 3 sec, and so on. Numbers 1 2 3 4 5 6 7.
+    </h3>
+    <h4>Ans:-</h4>
+    <pre>
+      function promiseChain(alpha, timeout) {
+        return new Promise((res, rej) => {
+          setTimeout(() => {
+            console.log(alpha);
+            res("this promise is resolved");
+          }, timeout);
+        });
+      }
+      
+      function visiable() {
+        promiseChain(1, 1000).then(() => {
+          promiseChain(2, 1000).then(() => {
+            promiseChain(3, 1000).then(() => {
+              promiseChain(4, 1000).then(() => {
+                promiseChain(5, 1000).then(() => {
+                  promiseChain(6, 1000).then(() => {
+                    promiseChain(7, 1000);
+                  });
+                });
+              });
+            });
+          });
+        });
+      }
+      
+      
+      visiable()
+</pre
+    >
+    <h4>Output:-1 2 3 4 5 6 7</h4>
+    <h4>explanation:-</h4>
+    <p>
+      The given code defines two functions: promiseChain(alpha, timeout) and
+      visiable(). The promiseChain(alpha, timeout) function creates a Promise
+      object that resolves after a specified timeout period. It logs the alpha
+      value to the console and resolves the Promise. The visiable() function
+      executes a chain of promiseChain functions sequentially. Each function has
+      a different alpha value ranging from 1 to 7 and a timeout of 1000
+      milliseconds (1 second). When the visiable() function is executed, the
+      promises are executed one after the other. Each promise logs its alpha
+      value to the console and waits for the specified timeout. Once the timeout
+      expires, the promise is resolved and the next promise in the chain is
+      executed.
+    </p>
+    <hr />
+    <hr />
+    <h3>
+      Q4.Create a promise function accepting an argument, if yes is passed to
+      the function then it should go to resolved state and print Promise
+      Resolved, and if nothing is passed then it should go to reject the state
+      and catch the error and print Promise Rejected
+    </h3>
+    <h4>Ans:-</h4>
+    <pre>
+      function myFuction(value){
+        return new Promise(
+          (resolved, reject)=>{
+             if (value) {
+              resolved("Promise Resolved")
+             } else {
+              reject("Promise Rejected")
+             }
+          }
+        ) 
+      }
+      
+      myFuction().then((value)=>{console.log(value)}).catch((t)=>{console.log(t)});
+      myFuction("yes").then((value)=>{console.log(value)}).catch((t)=>{console.log(t)});
+</pre
+    >
+    <h4>Output:-Promiss Rejected and Promise Resolved</h4>
+    <h4>explanation:-</h4>
+    <p>
+      The code defines a function `myFuction(value)` that returns a Promise. The
+      Promise is resolved with the message "Promise Resolved" if the `value` is
+      truthy, and rejected with the message "Promise Rejected" if the `value` is
+      falsy. The code demonstrates the usage of the Promise by calling
+      `myFuction()` twice with different arguments. It logs the resolved value
+      or rejection message to the console using the `.then()` and `.catch()`
+      methods respectively. In summary, the code showcases the creation and
+      usage of Promises to handle asynchronous operations and handle their
+      outcomes using `.then()` and `.catch()` methods.
+    </p>
+    <hr />
+    <hr />
+    <h3>Q5.Create examples to explain callback function.</h3>
+    <h4>Ans:-</h4>
+    <pre>
+      function greet(name, callback) {
+        console.log("Hello, " + name);
+        callback();
+      }
+      
+      function sayGoodMorning() {
+        console.log("good morning!");
+      }
+      
+      greet("PrepByte", sayGoodMorning);
+      
+</pre
+    >
+    <h4>Output:-Hello, PrepByte good morning!</h4>
+    <h4>explanation:-</h4>
+    <p>
+      the greet() function takes two parameters: name and callback. It logs a
+      greeting message to the console and then invokes the callback function.
+      The sayGoodbye() function is passed as the callback argument, and it logs
+      "Goodbye!" to the console. When greet("Alice", sayGoodbye) is called, it
+      outputs
+    </p>
+    <hr />
+    <h3>Q6.Create examples to explain callback hell function.</h3>
+    <h4>Ans:-</h4>
+    <pre>
+      function step1(callback) {
+        setTimeout(() => {
+          console.log("Step 1");
+          callback();
+        }, 1000);
+      }
+      
+      function step2(callback) {
+        setTimeout(() => {
+          console.log("Step 2");
+          callback();
+        }, 1000);
+      }
+      
+      function step3(callback) {
+        setTimeout(() => {
+          console.log("Step 3");
+          callback();
+        }, 1000);
+      }
+      
+      function step4(callback) {
+        setTimeout(() => {
+          console.log("Step 4");
+          callback();
+        }, 1000);
+      }
+      
+      function startProcess() {
+        step1(() => {
+          step2(() => {
+            step3(() => {
+              step4(() => {
+                console.log("Process completed");
+              });
+            });
+          });
+        });
+      }
+      
+      startProcess();      
+      
+</pre
+    >
+    <h4>Output:-Step 1 Step 2 Step 3 Step 4 Process completed</h4>
+    <h4>explanation:-</h4>
+    <p>
+      The code demonstrates callback hell, which occurs when callbacks are
+      nested excessively. It executes four steps sequentially, with a 1-second
+      delay between each step. However, the nested callbacks make the code
+      difficult to read and maintain. The startProcess function initiates the
+      process, and when all steps are completed, it logs "Process completed" to
+      the console. In modern JavaScript, there are better alternatives, like
+      Promises or async/await, for handling asynchronous code in a more readable
+      and maintainable way.
+    </p>
+    <hr />
+    <h3>Q7.Create examples to explain promises function.</h3>
+    <h4>Ans:-</h4>
+    <pre>
+      function explainPromiss(num) {
+        return new Promise((resolved, reject) => {
+          if (num % 2 == 0) {
+            resolved("number is even");
+          } else {
+            reject("number is odd");
+          }
+        });
+      }
+      
+      var m = explainPromiss(2)
+        .then((value) => {
+          console.log(value);
+        })
+        .catch((value) => console.log(value));
+      
+      
+</pre
+    >
+    <h4>Output:-number is even</h4>
+    <h4>explanation:-</h4>
+    <p>
+      The code defines a function called explainPromiss(num) that returns a
+      Promise. If the num parameter is even, the Promise is resolved with the
+      message "number is even". If the num parameter is odd, the Promise is
+      rejected with the message "number is odd". The code then uses the
+      explainPromiss() function to create a Promise by passing the number 2. It
+      handles the resolved Promise using .then() and logs the resolved value to
+      the console. If the Promise is rejected, it is caught using .catch() and
+      the rejection message is logged
+    </p>
+    <hr />
+    <h3>Q8.Create examples to explain async await function.</h3>
+    <h4>Ans:-</h4>
+    <pre>
+      function explainAsyncAwait() {
+        return new Promise((resolved, reject) => {
+          setInterval(()=>resolved("hello prepbyte"),2000)
+        });
+      }
+      
+       async function solveHere(){
+       let m = await explainAsyncAwait().then((value)=>value).catch((value)=>value)
+       console.log(m) 
+      }
+      
+      function simpleFunction(){
+        console.log("hello prepbyte 2")
+      }
+      
+      
+      solveHere()
+      simpleFunction()
+      
+</pre
+    >
+    <h4>Output:-Hello PrepByte 2 Hello prepbyte</h4>
+    <h4>explanation:-</h4>
+    <p>
+      The code uses async/await to handle an asynchronous operation. It waits
+      for a Promise to resolve and then logs the resolved value to the console.
+      Another function is called synchronously and logs a different message to
+      the console.
+    </p>
+    <hr />
+    <h3>Q9.Create examples to explain promise.all function.</h3>
+    <h4>Ans:-</h4>
+    <pre>
+      function FirstPromise(n){
+        return new Promise(
+         (Resolve,Reject)=>{
+            if(n%2==0){
+                Resolve(`${n} is even`)
+            }else{
+             Reject(`${n} is odd`)
+            }
+         }
+        )
+     }
+     
+     
+     function secondPromise(n){
+       return new Promise(
+        (Resolve,Reject)=>{
+           if(n%2==0){
+               Resolve(`${n} is even`)
+           }else{
+            Reject(`${n} is odd`)
+           }
+        }
+       )
+     }
+     
+     Promise.all([FirstPromise(1),secondPromise(3)])
+     .then((value)=>{console.log(value)})
+     .catch((value)=>{console.log(value)})
+     
+      
+</pre
+    >
+    <h4>Output:-1 is odd</h4>
+    <h4>explanation:-</h4>
+    <p>
+      The code defines two functions: FirstPromise(n) and secondPromise(n),
+      which return Promises based on whether the given number n is even or odd.
+      The Promise.all() function takes an array of Promises ([FirstPromise(1),
+      secondPromise(3)]) as input. It waits for all Promises in the array to
+      resolve or any of them to reject. If all Promises are resolved, the
+      .then() block is executed and it logs the resolved values to the console.
+      If any Promise is rejected, the .catch() block is executed and it logs the
+      rejection reasons to the console. In this specific example, since both
+      numbers (1 and 3) are odd, the Promises from FirstPromise(1) and
+      secondPromise(3) will be rejected. The .catch() block will be executed and
+      it will log the rejection reasons (1 is odd and 3 is odd) to the console
+    </p>
+  </body>
+</html>
